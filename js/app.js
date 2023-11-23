@@ -1,13 +1,17 @@
 import { DateTime } from 'luxon'
 
+const btnEliminar = document.querySelector('#vaciar-tweets')
+const formulario = document.querySelector('#caja-formulario');
+const header = document.querySelector('header');
+const boxTweets = document.querySelector('#caja-tweets')
+let dt = DateTime.now().setZone("America/Lima").setLocale("es");
+let tweets = [];
+let numero = 0;
+
 document.addEventListener('DOMContentLoaded', ()=> {
-    const btnEliminar = document.querySelector('#vaciar-tweets')
-    const formulario = document.querySelector('#caja-formulario');
-    const header = document.querySelector('header');
-    const boxTweets = document.querySelector('#caja-tweets')
-    let dt = DateTime.now().setZone("America/Lima").setLocale("es");
-    let tweets = [];
-    let numero = 0;
+    tweets = JSON.parse(localStorage.getItem('tweets')) || []
+
+    agregarTweethtml();
 
     formulario.addEventListener('click', presionarBtn)
     btnEliminar.addEventListener('click', eliminarTodo)
@@ -81,6 +85,11 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
             boxTweets.appendChild(publicacion)
         })
+        sincronizarStorage()
+    }
+
+    function sincronizarStorage(){
+        localStorage.setItem('tweets', JSON.stringify(tweets))
     }
 
     function mandarAlerta(){
