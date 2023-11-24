@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
     function eliminarTweet(id){
         tweets = tweets.filter(tweet => tweet.numero != id)
+        tweets.length === 0? numero=0: null;
         agregarTweethtml();
     }
 
@@ -54,6 +55,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
         const tiempo = dt.toLocaleString(DateTime.DATETIME_MED)
         tweets = [{mensaje,tiempo,numero}, ...tweets]
         agregarTweethtml();
+        console.log(tweets);
     }
 
     function agregarTweethtml(){
